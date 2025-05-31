@@ -21,10 +21,11 @@ public class FileStorageController {
     FileOperationService fileOperationService;
 
     @PostMapping("/upload/{fileId}")
-    public void uploadFile(
+    public ResponseEntity<String> uploadFile(
             @PathVariable("fileId") String fileId,
             @RequestParam("file") MultipartFile file) {
-        fileOperationService.handleFileUpload(fileId, file, "123");
+        ResponseEntity response = fileOperationService.handleFileUpload(fileId, file, "123");
+        return response;
     }
     @GetMapping("/get")
     public List<FileMetadataEvent> fetchFiles(

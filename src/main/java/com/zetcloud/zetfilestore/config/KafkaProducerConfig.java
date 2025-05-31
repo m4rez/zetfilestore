@@ -31,7 +31,6 @@ public class KafkaProducerConfig {
     public ProducerFactory<String, FileMetadataEvent> producerFactory() {
         Map<String, Object> props = new HashMap<>(kafkaProperties.getProducer().buildProperties(sslBundles));
 
-        // Manually inject bootstrap.servers from global config
         List<String> bootstrapServers = kafkaProperties.getBootstrapServers();
         if (bootstrapServers != null && !bootstrapServers.isEmpty()) {
             props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, String.join(",", bootstrapServers));

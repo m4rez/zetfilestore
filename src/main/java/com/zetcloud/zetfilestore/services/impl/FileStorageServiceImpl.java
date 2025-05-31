@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.Map;
 
 
 @Service
@@ -36,10 +37,11 @@ public class FileStorageServiceImpl implements FileStorageService {
                     .contentType(file.getContentType())
                     .build());
 
-            return ResponseEntity.ok("File stored successfully!");
+            return ResponseEntity.ok(Map.of("message", "File stored successfully!"));
 
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File storage failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "File storage failed: " + e.getMessage()));
         }
     }
 

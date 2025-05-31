@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -36,9 +37,9 @@ public class FileOperationServiceImpl implements FileOperationService {
     }
 
     @Override
-    public void handleFileUpload(String fileId, MultipartFile file, String userId) {
+    public ResponseEntity handleFileUpload(String fileId, MultipartFile file, String userId) {
         // Store file in MinIO
-        fileStorageService.storeFile(fileId, file);
+        ResponseEntity response = fileStorageService.storeFile(fileId, file);
 
         // Send metadata event to Kafka
         fileMetadataProducer.sendFileMetadata(
@@ -47,6 +48,7 @@ public class FileOperationServiceImpl implements FileOperationService {
                 file.getSize(),
                 userId
         );
+        return response;
     }
 
 
