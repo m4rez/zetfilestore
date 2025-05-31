@@ -50,22 +50,22 @@ spec:
             - name: MINIO_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "helm-chart.fullname" . }}-secret
+                  name: {{ .Values.secrets.minio }}
                   key: MINIO_USER
             - name: MINIO_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "helm-chart.fullname" . }}-secret
+                  name: {{ .Values.secrets.minio }}
                   key: MINIO_PASSWORD
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "helm-chart.fullname" . }}-secret
+                  name: {{ .Values.secrets.postgres }}
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "helm-chart.fullname" . }}-secret
+                  name: {{ .Values.secrets.postgres }}
                   key: POSTGRES_PASSWORD
             - name: SPRING_PROFILES_ACTIVE
               value: dev
